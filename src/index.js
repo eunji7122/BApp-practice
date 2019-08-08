@@ -31,6 +31,14 @@ const App = {
         sessionStorage.removeItem('walletInstance');
       }
     }
+
+    $('#buyModal').on('show.bs.modal', function(e) {
+      var id = $(e.relatedTarget).parent().find('.id').text();
+      var price = parseFloat($(e.relatedTarget).parent().find('.price').text() || 0);
+  
+      $(e.currentTarget).find('#id').val(id);
+      $(e.currentTarget).find('#price').val(price);
+    });
   },
 
   // 유효한 keystore 파일인지 검사
@@ -92,6 +100,8 @@ const App = {
       else {
         var amount = $('#amount').val();
         if (amount) {
+          var owner = await this.callOwner();
+          console.log(owner, walletInstance.address);
           agContract.methods.deposit().send({
             from: walletInstance.address,
             gas: '250000',
@@ -113,6 +123,10 @@ const App = {
         return;
       }
     }
+  },
+
+  callCustomer: async function () {
+    return await agContract.methods.customer().call();
   },
 
   callOwner: async function () {
@@ -188,6 +202,97 @@ const App = {
       }
     })
   
+  },
+
+  buyRealEstate: async function() {	
+    var id = $('#id').val();
+    var name = $('#name').val();
+    var price = $('#price').val();
+    var age = $('#age').val();
+
+    //console.log(cav.utils.toPeb(price, "KLAY"), typeof price);
+
+    const walletInstance = this.getWallet();
+    var owner = await this.callOwner();
+    
+    if (walletInstance) {
+      if (await this.callOwner() === walletInstance.address) return;
+      else {
+        if (price) {
+          // 배포계정에서 손님계정에게 돈 송금
+          // agContract.methods.transfer(cav.utils.toPeb(price, "KLAY")).send({
+          //   from: walletInstance.address,
+          //   gas: '250000'
+          // }).then(function(receipt) {
+          //   if (receipt.status) {
+          //     // spinner.stop();
+          //     alert(price + "KLAY가 지급되었습니다.");
+          //   }
+          // })
+          // 손님계정이 매물을 구입하면 배포계정으로 돈 송금
+          // var owner = await this.callOwner();
+          // console.log(owner);
+          // agContract.methods.deposit().send({
+          //   from: walletInstance.address,
+          //   gas: '250000',
+          //   value: cav.utils.toPeb(price, "KLAY")
+          // })
+          // .once('transactionHash', (txHash) => {
+          //   console.log(`txHash: ${txHash}`);
+          // })
+          // .once('receipt', (receipt) => {
+          //   console.log(`(#${receipt.blockNumber})`, receipt);
+          //   //spinner.stop();
+          //   alert(price + " KLAY를 컨트랙에 송금했습니다.");
+          //   location.reload();
+          // })
+          // .once('error', (error) => {
+          //   console.log(error.message);
+          // });
+
+          // agContract.methods.transfer_to_owner(cav.utils.toPeb(price, "KLAY")).send({
+          //   from: walletInstance.address,
+          //   gas: '250000'
+          // }).then(function(receipt) {
+          //   if (receipt.status) {
+          //     // spinner.stop();
+          //     alert(price + "KLAY가 지급되었습니다.");
+          //   }
+          // })
+
+          // agContract.methods.deposit().send({
+          //   from: this.callOwner(),
+          //   gas: '250000',
+          //   value: cav.utils.toPeb(price, "KLAY")
+          // })
+          // .once('transactionHash', (txHash) => {
+          //   console.log(`txHash: ${txHash}`);
+          // })
+          // .once('receipt', (receipt) => {
+          //   console.log(`(#${receipt.blockNumber})`, receipt);
+          //   //spinner.stop();
+          //   alert(price + " KLAY를 판매자에게 전송했습니다.");
+          //   location.reload();
+          // })
+          // .once('error', (error) => {
+          //   alert(error.message);
+          // });
+
+          // 20190723
+          console.log(owner);
+          agContract.methods.transfer(cav.utils.toPeb(price, "KLAY")).send({
+            from: walletInstance.address,
+            gas: '250000'
+          }).then(function (receipt) {
+            if (receipt.status) {
+              alert(price + "KLAY가 owner 계정으로 지급되었습니다.");
+            }
+          })
+
+        }
+        return;
+      }
+    }
   },
 
   removeWallet: function () {

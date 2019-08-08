@@ -1,0 +1,12 @@
+header {
+  background-color: peachpuff;
+  padding: 20px 10px;
+}
+
+header a {
+  color: white;
+}
+
+.header-right {
+  float: right;
+}

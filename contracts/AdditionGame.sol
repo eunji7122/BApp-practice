@@ -6,18 +6,28 @@ contract AdditionGame {
     constructor() public {
         owner = msg.sender;
     }
-    
+
     function getBalance() public view returns (uint) {
         return address(this).balance;
     }
 
     function deposit() public payable {  
-        require(msg.sender == owner);
-    }   
+        // require(msg.sender == owner);
+    }
   
+    // function transfer(uint _value) public returns (bool) {
+    //     // require(getBalance() >= _value);
+    //     msg.sender.transfer(_value);
+    //     return true;
+    // }
+
     function transfer(uint _value) public returns (bool) {
-        require(getBalance() >= _value);
-        msg.sender.transfer(_value);
+        // require(getBalance() >= _value);
+        owner.transfer(_value);
         return true;
     }
+
+    // function deposit_to_Owner() public payable {
+
+    // }
 }
