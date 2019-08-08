@@ -13,12 +13,19 @@
   <header>
     <a href="/main_page.html"><strong>부동산 매물 거래소</strong></a>
     <div class="header-right">
-      <a href="/login.html">Login</a>
+      <script>
+        const token = localStorage.getItem('token');
+        if (token) {
+          document.write('<button onclick="logout()">logout</button>')
+        } else {
+          document.write('<a href="/login.html">Login</a>')
+        }
+      </script>
     </div>
   </header>
   <div id="container">
     <div id="item-list-container">
-      
+
     </div>
   </div>
 </body>

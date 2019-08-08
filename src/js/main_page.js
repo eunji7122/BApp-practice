@@ -21,3 +21,8 @@ function indexItems() {
 
   });
 }
+
+function logout() {
+  localStorage.clear();
+  location.href = '/main_page.html';
+}
