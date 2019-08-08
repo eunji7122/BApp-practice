@@ -175,7 +175,7 @@ const App = {
 
   changeUI: async function (walletInstance) {
     $('#loginModal').modal('hide');
-    $('#login').hide();
+    // $('#login').hide();
     $('#logout').show();
     $('#address').append('<br>' + '<p>' + '내 계정 주소: ' + walletInstance.address + '</p>');
     $('#contractBalance').append('<p>' + '이벤트 잔액: ' + cav.utils.fromPeb(await this.callContractBalance(), "KLAY") + ' KLAY' + '</p>');     

@@ -15,7 +15,7 @@ function login() {
       console.log(response);
       const token = response.token_type + ' ' + response.access_token;
       localStorage.setItem('token', token);
-      location.href = '/main_page.html'
+      location.href = '/main_page.html';
     }
   });
 }
