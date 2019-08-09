@@ -10,7 +10,7 @@ function indexItems() {
   }).done((items) => {
       for(item of items) {
           const $itemContainer = $(`<div class="item-container" 
-          onClick="location.href = '/item-detail.html?id=${item.id}'">
+          onClick="location.href = '/item_detail.html?id=${item.id}'">
           <img src = ${item.image} alt = "" >
           <p class="item-title">${item.title}</p>
           <p class="item-price">${item.price} KLAY</p>

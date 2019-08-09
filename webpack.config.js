@@ -25,6 +25,7 @@ module.exports = {
       { from: "./src/item.html", to: "item.html"},
       { from: "./src/main_page.html", to: "main_page.html"},
       { from: "./src/login.html", to: "login.html"},
+      { from: "./src/item_detail.html", to: "item_detail.html"},
       // { from: "./build/contracts/RealEstate.json", to: "RealEstate.json"},
     ]),
   ],
